@@ -1,4 +1,5 @@
 import compliantModel from "../Model/complaint.js";
+import fs from 'fs'
 
 // Add complaint function
 const addComp = async (req, res) => {
@@ -55,9 +56,35 @@ const listw = async ( req, res ) => {
 
 const removecomp = async ( req, res ) => {
     try {
+       // Ensure the ID is provided in the request body
+       const complaintId = req.body.id;
+       if (!complaintId) {
+           return res.status(400).json({ success: false, message: "No complaint ID provided" });
+       }
 
+       // Find the complaint by ID
+       const comp = await compliantModel.findById(complaintId);
+
+       // If the complaint doesn't exist, return an error
+       if (!comp) {
+           return res.status(404).json({ success: false, message: "Complaint not found" });
+       }
+
+       // Remove the image associated with the complaint if it exists
+       if (comp.image) {
+           fs.unlink(`uploads/${comp.image}`, (err) => {
+               if (err) {
+                   console.error("Error deleting image:", err);
+               }
+           });
+       }
+
+       // Delete the complaint from the database
+       await compliantModel.findByIdAndDelete(complaintId);
+       res.json({ success: true, message: "Complaint removed" });
     } catch ( error ) {
-
+         console.log(error);
+         res.json({ success : false , message:"Error"})
     }
 }
 export { addComp , lists , listw, removecomp };
