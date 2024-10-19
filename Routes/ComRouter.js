@@ -1,5 +1,5 @@
 import express from "express";
-import { addComp } from "../Controllers/complaintController.js";
+import { addComp , lists , listw , removecomp } from "../Controllers/complaintController.js";
 import multer from "multer";
 import fs from "fs";
 
@@ -25,5 +25,7 @@ const upload = multer({ storage: storage });
 
 // Route to add a new complaint
 comRouter.post("/add", upload.single("image"), addComp);
-
+comRouter.get("/student", lists);
+comRouter.get("/worker" , listw);
+comRouter.post("/remove" , removecomp);
 export default comRouter;

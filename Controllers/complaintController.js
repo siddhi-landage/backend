@@ -18,7 +18,8 @@ const addComp = async (req, res) => {
         Room: req.body.Room,
         description: req.body.description,
         image: image_filename,
-        category: req.body.category
+        category: req.body.category,
+        person:req.body.person
     });
 
     try {
@@ -30,4 +31,33 @@ const addComp = async (req, res) => {
     }
 };
 
-export { addComp };
+
+// list the all compliants 
+const lists = async ( req, res ) => {
+     try {
+         const comps = await compliantModel.find({ person : 'student'});
+         res.json({success:true, data : comps})
+     } catch( error) {
+        console.log(error);
+        res.json({success:false , message:"Error"})
+     }
+}
+
+const listw = async ( req, res ) => {
+    try {
+        const compw = await compliantModel.find({ person : 'worker'});
+        res.json({success:true, data :compw })
+    } catch( error) {
+       console.log(error);
+       res.json({success:false , message:"Error"})
+    }
+}
+
+const removecomp = async ( req, res ) => {
+    try {
+
+    } catch ( error ) {
+
+    }
+}
+export { addComp , lists , listw, removecomp };
