@@ -3,6 +3,7 @@ import cors from "cors";
 import { connectDB } from "./Configure/db.js";
 import comRouter from "./Routes/ComRouter.js";
 import userRouter from "./Routes/userRoute.js";
+import noticeRouter from "./Routes/NoticeRouter.js";
 
 const app = express();
 const port = 4000;
@@ -17,7 +18,7 @@ connectDB();
 // API Endpoints 
 app.use("/api/complaint", comRouter);
 app.use("/api/user" , userRouter);
-
+app.use("/api/notice" , noticeRouter);
 
 app.get("/", (req, res) => {
     res.send("API Working");
