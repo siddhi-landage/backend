@@ -2,25 +2,25 @@ import noticemodel from "../Model/noticemodel.js";
 import fs from 'fs'
 
 const addNotice = async (req, res) => {
-    console.log("File:", req.file);  // Log the file to check if it's being uploaded
-    console.log("Body:", req.body);  // Log the request body to debug
+    console.log("File:", req.file);  
+    console.log("Body:", req.body);
 
     if (!req.file) {
         return res.status(400).json({ success: false, message: "No file uploaded" });
     }
 
     // Get the uploaded file's filename
-    let pdf_filename = req.file.filename;
+    let image_filename = req.file.filename;
 
     // Create a new complaint with the received data
     const notice = new noticemodel({
        subject : req.body.subject,
        Date : req.body.Date,
-       pdf : pdf_filename
+       image : image_filename
     });
 
     try {
-        await notice.save();  // Save the complaint to the database
+        await notice.save();  // Save the notice to the database
         res.json({ success: true, message: "Notice added successfully" });
     } catch (error) {
         console.log(error);
@@ -55,8 +55,8 @@ const removenotice = async ( req, res ) => {
        }
 
        // Remove the image associated with the complaint if it exists
-       if (notice.pdf) {
-           fs.unlink(`Notices/${notice.pdf}`, (err) => {
+       if (notice.image) {
+           fs.unlink(`Notices/${notice.image}`, (err) => {
                if (err) {
                    console.error("Error deleting notice:", err);
                }
