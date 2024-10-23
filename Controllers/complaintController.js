@@ -3,8 +3,8 @@ import fs from 'fs'
 
 // Add complaint function
 const addComp = async (req, res) => {
-    console.log("File:", req.file);  // Log the file to check if it's being uploaded
-    console.log("Body:", req.body);  // Log the request body to debug
+    console.log("File:", req.file);  
+    console.log("Body:", req.body); 
 
     if (!req.file) {
         return res.status(400).json({ success: false, message: "No file uploaded" });
@@ -20,7 +20,7 @@ const addComp = async (req, res) => {
         description: req.body.description,
         image: image_filename,
         category: req.body.category,
-        person:req.body.person
+        person:req.body.person ,
     });
 
     try {
@@ -44,7 +44,7 @@ const lists = async ( req, res ) => {
      }
 }
 
-const listw = async ( req, res ) => {
+const listw = async( req, res ) => {
     try {
         const compw = await compliantModel.find({ person : 'worker'});
         res.json({success:true, data :compw })
@@ -54,7 +54,7 @@ const listw = async ( req, res ) => {
     }
 }
 
-const removecomp = async ( req, res ) => {
+const removecomp = async( req, res ) => {
     try {
        // Ensure the ID is provided in the request body
        const complaintId = req.body.id;
@@ -87,4 +87,6 @@ const removecomp = async ( req, res ) => {
          res.json({ success : false , message:"Error"})
     }
 }
+
+
 export { addComp , lists , listw, removecomp };
