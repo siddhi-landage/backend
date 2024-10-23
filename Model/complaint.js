@@ -6,7 +6,7 @@ const compliantSchema = new mongoose.Schema({
     Room: { type: Number, required: true },
     image: { type: String, required: true }, 
     category: { type: String, required: true },
-    person : { type:String , required:true}
+    person : { type:String , required:true},
 });
 
 const compliantModel = mongoose.models.compliant || mongoose.model("compliant", compliantSchema);
