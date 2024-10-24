@@ -6,18 +6,16 @@ import fs from "fs";
 const comRouter = express.Router();
 
 // Create the Uploads directory if it doesn't exist
-const uploadDir = './Uploads';
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir);
-}
+// const uploadDir = './Uploads';+
+// if (!fs.existsSync(uploadDir)) {
+//     fs.mkdirSync(uploadDir);
+// }
 
 // Multer setup for file storage
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "uploads"); 
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
+    destination:"uploads",
+    filename:(req, file, cb) => {
+         return cb(null ,`${Date.now()}${file.originalname}`)
     }
 });
 
@@ -28,5 +26,4 @@ comRouter.post("/add", upload.single("image"), addComp);
 comRouter.get("/student", lists);
 comRouter.get("/worker" , listw);
 comRouter.post("/remove" , removecomp);
-comRouter.use('/uploads', express.static('Uploads'));
 export default comRouter;

@@ -16,8 +16,10 @@ app.use(cors());
 connectDB();
 
 // API Endpoints 
-app.use("/api/complaint", comRouter);
-app.use("/api/user" , userRouter);
+app.use("/api/complaint", comRouter)
+app.use("/images" , express.static('uploads'))
+app.use("/notice_img" , express.static('Notices'))
+app.use("/api/user" , userRouter)
 app.use("/api/notice" , noticeRouter);
 
 app.get("/", (req, res) => {

@@ -11,7 +11,7 @@ const addComp = async (req, res) => {
     }
 
     // Get the uploaded file's filename
-    let image_filename = req.file.filename;
+    let image_filename = `${req.file.filename}`;
 
     // Create a new complaint with the received data
     const comp = new compliantModel({

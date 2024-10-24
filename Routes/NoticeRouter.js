@@ -5,12 +5,10 @@ import fs from "fs";
 
 const noticeRouter = express.Router();
 const store = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "Notices"); 
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
+    destination: "Notices",
+    filename:(req, file, cb) => {
+        return cb(null ,`${Date.now()}${file.originalname}`)
+   }
 });
 
 const notice = multer({ storage: store });
